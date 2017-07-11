@@ -30,6 +30,14 @@ public class MainActivityFragment extends Fragment {
         return root;
     }
     public void fetchJoke(){
-        new EndpointsAsyncTask().execute(getContext());
+        new EndpointsAsyncTask(){
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                final Intent intent = new Intent(getContext(), ViewJokeActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, s);
+                getContext().startActivity(intent);
+            }
+        }.execute();
     }
 }
